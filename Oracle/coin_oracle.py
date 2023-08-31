@@ -105,6 +105,7 @@ class CoinOracle(Oracle.storage.CoinStorage):
         return self.coin_data
     '''-----------------------------------'''
     def get_cg_exchange_prices(self, name):
+        print(f"Name: {name}")
         url = f"https://api.coingecko.com/api/v3/coins/{name.lower()}"
 
         print(f"URL: {url}")

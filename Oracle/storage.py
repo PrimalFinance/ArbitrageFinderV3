@@ -32,6 +32,20 @@ class CoinStorage:
         self.cmc_api = cmc_api
         self.csv_file = "D:\\Coding\\VisualStudioCode\\Projects\\Python\\ArbitrageFinderV3\\Oracle\\coins.csv"
         self.coin_data = None
+        self.network_to_column_mapping = {
+            "arbitrum": "ARB_ADDRESS",
+            "avalanche C-Chain": "AVAX_ADDRESS",
+            "base": "BASE_ADDRESS",
+            "bnb smart chain (BEP20)": "BNB_ADDRESS",
+            "ethereum": "ETH_ADDRESS",
+            "linea": "LINEA_ADDRESS",
+            "metis andromeda": "METIS_ADDRESS",
+            "optimism": "OP_ADDRESS",
+            "polygon": "POLYGON_ADDRESS",
+            "polygon zkevm": "POLYGON_ZKEVM_ADDRESS",
+            "solana": "SOL_ADDRESS",
+            "zksync era": "ZKSYNC_ERA_ADDRESS"
+        }
     '''----------------------------------- Data Retrieval Functions -----------------------------------'''
     '''-----------------------------------'''
     '''-----------------------------------'''
@@ -277,6 +291,28 @@ class CoinStorage:
 
 
     '''-----------------------------------'''
+    def get_address_by_ticker(self, ticker: str, network: str):
+        """
+        Takes the ticker as a parameter and searches the csv file.
+        Will return the address in the column of the network desired.
+        """
+        # Read csv data.
+        csv_file = pd.read_csv(coin_id_path)
+
+        # Lowercase the network to match keys in dictionary.
+        network = network.lower()
+
+        # Get the column.
+        col_name = self.network_to_column_mapping[network]
+
+        # Get the ticker index. 
+        ticker_index = csv_file[csv_file["ticker"] == ticker.lower()].index.values[0]
+        print(f'Tinker: {ticker_index}')
+        address = csv_file.loc[ticker_index, col_name.upper()]
+        print(f"Address: {address}")
+        return address
+
+
 
     '''-----------------------------------'''
     
@@ -421,20 +457,7 @@ class CoinStorage:
 
         response = self.cmc.get(url)
 
-        network_to_column_mapping = {
-            "Arbitrum": "ARB_ADDRESS",
-            "Avalanche C-Chain": "AVAX_ADDRESS",
-            "Base": "BASE_ADDRESS",
-            "BNB Smart Chain (BEP20)": "BNB_ADDRESS",
-            "Ethereum": "ETH_ADDRESS",
-            "Linea": "LINEA_ADDRESS",
-            "Metis Andromeda": "METIS_ADDRESS",
-            "Optimism": "OP_ADDRESS",
-            "Polygon": "POLYGON_ADDRESS",
-            "Polygon zkEVM": "POLYGON_ZKEVM_ADDRESS",
-            "Solana": "SOL_ADDRESS",
-            "zkSync Era": "ZKSYNC_ERA_ADDRESS"
-        }
+       
 
         
         if response.status_code == 200:
@@ -447,11 +470,11 @@ class CoinStorage:
                 # Parse the data. 
                 for i in coin_data:
                     contract_address = i["contract_address"].upper()
-                    platform_name = i["platform"]["name"]
+                    platform_name = i["platform"]["name"].lower()
 
                     #Try to get the column name based on the platform.
                     try:
-                        col_name = network_to_column_mapping[platform_name]
+                        col_name = self.network_to_column_mapping[platform_name]
                         tracked_platforms[col_name] = contract_address
                     except KeyError:
                         untracked_platforms[platform_name] = contract_address
@@ -481,11 +504,11 @@ class CoinStorage:
                         # Parse the data. 
                         for i in coin_data:
                             contract_address = i["contract_address"].upper()
-                            platform_name = i["platform"]["name"]
+                            platform_name = i["platform"]["name"].lower()
 
                             #Try to get the column name based on the platform.
                             try:
-                                col_name = network_to_column_mapping[platform_name]
+                                col_name = self.network_to_column_mapping[platform_name]
                                 tracked_platforms[col_name] = contract_address
                             except KeyError:
                                 untracked_platforms[platform_name] = contract_address

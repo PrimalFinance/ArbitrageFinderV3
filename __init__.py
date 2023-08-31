@@ -1,16 +1,17 @@
+# ArbitrageFinder related imports
 from ArbitrageFinder.arbitrage_finderV3 import ArbitrageFinder
-
+# Oracle related imports
 from Oracle.coin_oracle import CoinOracle
-
+# Time & Date related imports
 import time
-
+# Asynchronous imports
 from concurrent.futures import ThreadPoolExecutor
+# Wallet imports
+from Wallet.wallet import OptimismWallet
 
 
 
-
-def find_arbitrage_routes():
-    tickers = ["0x0", "CYBER", "FLEX", "FET", "VEGA"]
+def find_arbitrage_routes(tickers: list):
 
     for t in tickers:
         main(t)
@@ -43,10 +44,20 @@ def add_new_coin(ticker: str):
 def test():
     coin = CoinOracle()
 
-    coin.get_dex_pairs()
-    
+    #coin.get_dex_pairs()
+    coin.convert_addresses_to_uppercase()
+
+def wallet():
+
+    w = OptimismWallet()
+
+    w.get_erc_token_balance("USDC")
+
 
 if __name__ == "__main__":
-    find_arbitrage_routes()
-    add_new_coin("OX") 
+    tickers = ["PYR", "UFT", "JOE", "WAIT"]
+    ticker = "WMATIC"
+    #find_arbitrage_routes(tickers=tickers)
+    wallet()
+    #add_new_coin(ticker) 
     #test()

@@ -109,7 +109,7 @@ Target Price: ${self.route_path['target']['price']}
 
 
 class ArbitrageFinder:
-    def __init__(self, arb_threshold: float = 0.0, ignore_threshold: bool = False) -> None:
+    def __init__(self, arb_threshold: float = 0.0, ignore_threshold: bool = False, exclude_exchanges: bool = True) -> None:
         
         self.stable_coins = ["USD", "USDT", "USDC", "DAI"]
         self.oracle = CoinOracle()
@@ -141,11 +141,14 @@ class ArbitrageFinder:
         # List of exchanges to exclude.
         excluded_exchanges = {
             "CEX": [],
-            "DEX": ["Uniswap V3 (Ethereum)"]
+            "DEX": [
+                "Pancakeswap V3 (Ethereum)",               # Pancakeswap
+                "Uniswap V2 (Ethereum)","Uniswap V3 (Ethereum)", # Uniswap
+                ]
         }
 
         # Boolean to track if exchanges will be excluded.
-        self.exclude_exchanges = False
+        self.exclude_exchanges = exclude_exchanges
 
 
         if excluded_exchanges != {}:
