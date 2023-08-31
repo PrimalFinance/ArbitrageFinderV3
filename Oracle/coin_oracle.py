@@ -1,6 +1,13 @@
+# Operating system related imports 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+
 
 # Requests related imports
 import requests
+from requests import Session
 
 # CCXT related imports
 import ccxt
@@ -19,6 +26,10 @@ from concurrent.futures import ThreadPoolExecutor
 # Coingecko imports 
 from pycoingecko import CoinGeckoAPI
 
+# Coinmarketcap imports
+from coinmarketcapapi import CoinMarketCapAPI
+
+
 coin_id_path = "D:\\Coding\\VisualStudioCode\\Projects\\Python\\ArbitrageFinderV3\\Oracle\\coins.csv"
 
 class CoinOracle(Oracle.storage.CoinStorage):
@@ -28,7 +39,16 @@ class CoinOracle(Oracle.storage.CoinStorage):
         self.exchanges = []
         self.coin_data = {}
         self.cg = CoinGeckoAPI()
-        super().__init__()
+
+        headers = {
+                "Accepts": "application/json",
+                "X-CMC_PRO_API_KEY": os.getenv("coinmarketcap_key")  
+            }
+
+        cmc_api = CoinMarketCapAPI(os.getenv("coinmarketcap_key"))
+        self.cmc = Session()
+        self.cmc.headers.update(headers)
+        super().__init__(cmc=self.cmc, cmc_api=cmc_api)
         
         
     '''-----------------------------------'''
