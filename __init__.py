@@ -7,7 +7,7 @@ import time
 # Asynchronous imports
 from concurrent.futures import ThreadPoolExecutor
 # Wallet imports
-from Wallet.wallet import ArbitrumWallet, OptimismWallet
+from Wallet.wallet import ArbitrumWallet, OptimismWallet, PolygonWallet
 
 
 
@@ -50,7 +50,8 @@ def test():
 def wallet():
 
     #w = OptimismWallet()
-    w = ArbitrumWallet()
+    #w = ArbitrumWallet()
+    w = PolygonWallet()
     w.get_token_balances()
 
 

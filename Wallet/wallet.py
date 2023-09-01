@@ -53,7 +53,7 @@ class Wallet:
         # Iterate through each token balance entry
         for token_balance_entry in token_balances:
             contract_address = token_balance_entry.contract_address
-            ticker = self.oracle.get_ticker_by_address(address=contract_address)
+            ticker = self.oracle.get_ticker_by_address(address=contract_address.upper())
             token_balance_hex = token_balance_entry.token_balance
             
             # Convert the token balance from hex to an integer
@@ -62,9 +62,12 @@ class Wallet:
 
             if token_balance != 0:
                 # Get the coin id
-                coin_id = self.oracle.get_id_by_ticker(ticker=ticker.lower())
-                coin_price = self.oracle.get_coin_prices(coin_id=coin_id)
-                value = coin_price * token_balance
+                try:
+                    coin_id = self.oracle.get_id_by_ticker(ticker=ticker.lower())
+                    coin_price = self.oracle.get_coin_prices(coin_id=coin_id)
+                    value = coin_price * token_balance
+                except AttributeError:
+                    print(f"Contract: {contract_address}")
             else:
                 value = 0
 
@@ -110,6 +113,13 @@ class OptimismWallet(Wallet):
     '''-----------------------------------'''
     '''-----------------------------------'''
     '''-----------------------------------'''
+class PolygonWallet(Wallet):
+    def __init__(self) -> None:
+        api_key = os.getenv("alchemy_polygon")
+        network = alchemy.Network.MATIC_MAINNET
+        csv_file = "polygon_wallet.csv"
+        native_coin = "MATIC"
+        super().__init__(api_key, network, csv_file, native_coin)
     '''-----------------------------------'''
     '''-----------------------------------'''
     '''-----------------------------------'''
