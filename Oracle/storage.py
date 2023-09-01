@@ -73,6 +73,18 @@ class CoinStorage:
             except TypeError:
                 print(f"Tag: {coin}")
     '''-----------------------------------'''
+    def get_coin_prices(self, coin_id: str):
+        base_url = "https://api.coingecko.com/api/v3"
+        endpoint = f"/simple/price?ids={coin_id}&vs_currencies=usd"  # Replace "usd" with the desired currency
+
+        url = base_url + endpoint
+        response = requests.get(url)
+        data = response.json()
+
+        if coin_id in data:
+            return data[coin_id]["usd"]
+        else:
+            return None
     '''-----------------------------------'''
     def get_name_by_ticker(self, ticker: str, data_source: str = "cg") -> str:
         """
@@ -122,21 +134,34 @@ class CoinStorage:
             if address_found:
                 return row_data["ticker"].upper()
     '''-----------------------------------'''
-    def get_id_by_ticker(self, ticker: str) -> str:
+    def get_id_by_ticker(self, ticker: str, method: int = 2) -> str:
         """
         Queries the coingecko api with the ticker and returns the id for coingecko to make further searches. 
         """
-        base_url = "https://api.coingecko.com/api/v3/coins/list"
-        response = requests.get(base_url)
 
-        if response.status_code == 200:
-            coins_list = response.json()
-            for coin in coins_list:
-                if coin["symbol"].lower() == ticker.lower():
-                    return coin["id"]
-        else:
-            print(f"Failed to retrieve data id coingecko api for: {ticker}")
-            return np.nan
+        if method == 1:
+            base_url = "https://api.coingecko.com/api/v3/coins/list"
+            response = requests.get(base_url)
+
+            if response.status_code == 200:
+                coins_list = response.json()
+                for coin in coins_list:
+                    if coin["symbol"].lower() == ticker.lower():
+                        return coin["id"]
+            else:
+                print(f"Failed to retrieve data id coingecko api for: {ticker}")
+                return np.nan
+        elif method == 2:
+            csv_file = pd.read_csv(coin_id_path)
+
+            ticker = ticker.lower()
+
+            ticker_index = csv_file[csv_file["ticker"] == ticker].index.values[0]
+
+            coin_id = csv_file.loc[ticker_index, "cg_name"]
+            return coin_id
+            
+
     '''-----------------------------------'''
     def get_tickers_in_file(self) -> list:
         """

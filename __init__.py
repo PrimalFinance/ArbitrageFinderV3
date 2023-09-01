@@ -7,7 +7,7 @@ import time
 # Asynchronous imports
 from concurrent.futures import ThreadPoolExecutor
 # Wallet imports
-from Wallet.wallet import OptimismWallet
+from Wallet.wallet import ArbitrumWallet, OptimismWallet
 
 
 
@@ -49,14 +49,14 @@ def test():
 
 def wallet():
 
-    w = OptimismWallet()
-
-    w.get_erc_token_balance("USDC")
+    #w = OptimismWallet()
+    w = ArbitrumWallet()
+    w.get_token_balances()
 
 
 if __name__ == "__main__":
     tickers = ["PYR", "UFT", "JOE", "WAIT"]
-    ticker = "WMATIC"
+    ticker = "RETH"
     #find_arbitrage_routes(tickers=tickers)
     wallet()
     #add_new_coin(ticker) 
