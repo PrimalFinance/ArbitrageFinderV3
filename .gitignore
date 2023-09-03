@@ -1,3 +1,7 @@
 test.py
 test2.py
 .env
+wallet_snapshots.db
+D:\Coding\VisualStudioCode\Projects\Python\ArbitrageFinderV3\Wallet\arbitrum_wallet.csv
+D:\Coding\VisualStudioCode\Projects\Python\ArbitrageFinderV3\Wallet\optimism_wallet.csv
+D:\Coding\VisualStudioCode\Projects\Python\ArbitrageFinderV3\Wallet\polygon_wallet.csv

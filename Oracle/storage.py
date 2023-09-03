@@ -73,18 +73,40 @@ class CoinStorage:
             except TypeError:
                 print(f"Tag: {coin}")
     '''-----------------------------------'''
-    def get_coin_prices(self, coin_id: str):
-        base_url = "https://api.coingecko.com/api/v3"
-        endpoint = f"/simple/price?ids={coin_id}&vs_currencies=usd"  # Replace "usd" with the desired currency
+    def get_coin_prices(self, coin_id: str, source = "cg"):
 
-        url = base_url + endpoint
-        response = requests.get(url)
-        data = response.json()
+        if source.lower() == "cg":
+            base_url = "https://api.coingecko.com/api/v3"
+            endpoint = f"/simple/price?ids={coin_id}&vs_currencies=usd"  # Replace "usd" with the desired currency
 
-        if coin_id in data:
-            return data[coin_id]["usd"]
-        else:
-            return None
+            url = base_url + endpoint
+            print(f"Url: {url}")
+            response = requests.get(url)
+            data = response.json()
+
+            if coin_id in data:
+                return data[coin_id]["usd"]
+            else:
+                return None
+        elif source.lower() == "cmc":
+             # Define the API endpoint for CoinMarketCap's cryptocurrency quotes
+            base_url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
+            
+            # Specify the parameters for the request
+            params = {
+                "symbol": coin_id,     
+                "convert": "USD"  
+            }
+
+            response = self.cmc.get(base_url, params=params)
+
+            # If successful query.
+            if response.status_code == 200:
+                data = response.json()
+
+                # Check if the coin symbol exists in the response. 
+                if coin_id in data["data"]:
+                    return data["data"][coin_id]["quote"]["USD"]["price"]
     '''-----------------------------------'''
     def get_name_by_ticker(self, ticker: str, data_source: str = "cg") -> str:
         """

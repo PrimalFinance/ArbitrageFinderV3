@@ -1,0 +1,190 @@
+2023-09-03 13:31:03,663 - root - INFO - -------------------------------------------------------------------------------------------------------------------
+2023-09-03 13:31:03,663 - root - INFO - [PROM]
+2023-09-03 13:31:05,208 - root - INFO - -------------------------------------------------------------------------------------------------------------------
+2023-09-03 13:31:05,208 - root - INFO - [PYR]
+2023-09-03 13:31:06,080 - root - INFO - -------------------------------------------------------------------------------------------------------------------
+2023-09-03 13:31:06,080 - root - INFO - [MC]
+2023-09-03 13:31:06,080 - root - INFO - -------------------------------
+Route: Kraken -> Kraken
+Percent Change: 0.18%
+Base Pair: MC/MC
+Target Pair: MC/USD
+Base Price: $0.317428
+Target Price: $0.318
+Stale: (False:False)
+Trust Score: (yellow:green)
+-------------------------------
+
+2023-09-03 13:31:06,080 - root - INFO - -------------------------------
+Route: Kraken -> MEXC
+Percent Change: 0.15%
+Base Pair: MC/MC
+Target Pair: MC/USDT
+Base Price: $0.317428
+Target Price: $0.3179
+Stale: (False:False)
+Trust Score: (yellow:green)
+-------------------------------
+
+2023-09-03 13:31:06,080 - root - INFO - -------------------------------
+Route: MEXC -> Kraken
+Percent Change: 0.03%
+Base Pair: MC/MC
+Target Pair: MC/USD
+Base Price: $0.3179
+Target Price: $0.318
+Stale: (False:False)
+Trust Score: (green:green)
+-------------------------------
+
+2023-09-03 13:31:06,956 - root - INFO - -------------------------------------------------------------------------------------------------------------------
+2023-09-03 13:31:06,956 - root - INFO - [BLD]
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------------------------------------------------------------------------------------------
+2023-09-03 13:31:08,125 - root - INFO - [FET]
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------
+Route: Kraken -> PancakeSwap (v2)
+Percent Change: 2.39%
+Base Pair: FET/FET
+Target Pair: FET/WBNB
+Base Price: $0.2581
+Target Price: $0.264278
+Stale: (False:False)
+Trust Score: (green:None)
+-------------------------------
+
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------
+Route: Coinbase Exchange -> PancakeSwap (v2)
+Percent Change: 2.31%
+Base Pair: FET/FET
+Target Pair: FET/WBNB
+Base Price: $0.2583
+Target Price: $0.264278
+Stale: (False:False)
+Trust Score: (green:None)
+-------------------------------
+
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------
+Route: MEXC -> PancakeSwap (v2)
+Percent Change: 2.16%
+Base Pair: FET/FET
+Target Pair: FET/WBNB
+Base Price: $0.2587
+Target Price: $0.264278
+Stale: (False:False)
+Trust Score: (green:None)
+-------------------------------
+
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------
+Route: Coinbase Exchange -> PancakeSwap (v2)
+Percent Change: 2.04%
+Base Pair: FET/FET
+Target Pair: FET/WBNB
+Base Price: $0.259
+Target Price: $0.264278
+Stale: (False:False)
+Trust Score: (green:None)
+-------------------------------
+
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------
+Route: Kraken -> Uniswap V3 (BSC)
+Percent Change: 1.78%
+Base Pair: FET/FET
+Target Pair: FET/WBNB
+Base Price: $0.2581
+Target Price: $0.262686
+Stale: (False:False)
+Trust Score: (green:green)
+-------------------------------
+
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------
+Route: Coinbase Exchange -> Uniswap V3 (BSC)
+Percent Change: 1.70%
+Base Pair: FET/FET
+Target Pair: FET/WBNB
+Base Price: $0.2583
+Target Price: $0.262686
+Stale: (False:False)
+Trust Score: (green:green)
+-------------------------------
+
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------
+Route: MEXC -> Uniswap V3 (BSC)
+Percent Change: 1.54%
+Base Pair: FET/FET
+Target Pair: FET/WBNB
+Base Price: $0.2587
+Target Price: $0.262686
+Stale: (False:False)
+Trust Score: (green:green)
+-------------------------------
+
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------
+Route: Coinbase Exchange -> Uniswap V3 (BSC)
+Percent Change: 1.42%
+Base Pair: FET/FET
+Target Pair: FET/WBNB
+Base Price: $0.259
+Target Price: $0.262686
+Stale: (False:False)
+Trust Score: (green:green)
+-------------------------------
+
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------
+Route: Kraken -> Kraken
+Percent Change: 1.40%
+Base Pair: FET/FET
+Target Pair: FET/EUR
+Base Price: $0.2581
+Target Price: $0.261716
+Stale: (False:False)
+Trust Score: (green:None)
+-------------------------------
+
+2023-09-03 13:31:08,125 - root - INFO - -------------------------------
+Route: Coinbase Exchange -> Kraken
+Percent Change: 1.32%
+Base Pair: FET/FET
+Target Pair: FET/EUR
+Base Price: $0.2583
+Target Price: $0.261716
+Stale: (False:False)
+Trust Score: (green:None)
+-------------------------------
+
+2023-09-03 13:31:09,116 - root - INFO - -------------------------------------------------------------------------------------------------------------------
+2023-09-03 13:31:09,116 - root - INFO - [UNIBOT]
+2023-09-03 13:31:10,009 - root - INFO - -------------------------------------------------------------------------------------------------------------------
+2023-09-03 13:31:10,009 - root - INFO - [GALA]
+2023-09-03 13:31:10,009 - root - INFO - -------------------------------
+Route: Kraken -> Kraken
+Percent Change: 0.26%
+Base Pair: GALA/GALA
+Target Pair: GALA/EUR
+Base Price: $0.0168
+Target Price: $0.01684311
+Stale: (False:False)
+Trust Score: (green:green)
+-------------------------------
+
+2023-09-03 13:31:10,009 - root - INFO - -------------------------------
+Route: Kraken -> MEXC
+Percent Change: 0.24%
+Base Pair: GALA/GALA
+Target Pair: GALA/USDT
+Base Price: $0.0168
+Target Price: $0.01684
+Stale: (False:False)
+Trust Score: (green:green)
+-------------------------------
+
+2023-09-03 13:31:10,009 - root - INFO - -------------------------------
+Route: MEXC -> Kraken
+Percent Change: 0.02%
+Base Pair: GALA/GALA
+Target Pair: GALA/EUR
+Base Price: $0.01684
+Target Price: $0.01684311
+Stale: (False:False)
+Trust Score: (green:green)
+-------------------------------
+

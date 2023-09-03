@@ -6,6 +6,16 @@ load_dotenv()
 # Alchemy api imports
 import alchemy
 
+# Time & Date related imports
+import time
+import datetime as dt
+
+# Pandas imports
+import pandas as pd
+pd.options.display.float_format = "{:.3f}".format
+
+# Import wallet database.
+from Wallet.wallet_db import WalletDatabase
 
 # Web3 related imports
 from web3 import Web3
@@ -24,12 +34,24 @@ class Wallet:
     def __init__(self, api_key: str, network: alchemy.Network, csv_file: str, native_coin: str = "ETH") -> None:
         self.alchemy = alchemy.Alchemy(api_key=api_key, network=network)
         self.native_coin = native_coin
+        self.wrapped_native_coin = f"W{self.native_coin}"
         self.csv_name = csv_file
         self.csv_file_path = csv_file_paths + self.csv_name
+        self.wallet_db = WalletDatabase(self.csv_file_path)
+
+
+        self.stable_coins = ["USDC", "USDT"]
         self.oracle = Oracle.coin_oracle.CoinOracle()
 
     '''-----------------------------------'''
-    def get_token_balances(self):
+    def update_token_balances(self):
+        # Get the current time and date.
+        current = dt.datetime.now()
+        cur_time = str(current.time()).split(".")[0]
+        cur_date = current.date()
+
+
+
         # Balance for ETH in unites of wei.
         eth_balance_wei = self.alchemy.core.get_balance(ethereum_wallet) 
         # Wei to ether conversion
@@ -44,7 +66,7 @@ class Wallet:
         # Dictionary to hold the balance of the wallet.
         wallet_holdings = {self.native_coin: {
                            "balance": eth_balance,
-                           "value": value 
+                           "value": "${:.2f}".format(value) 
                            }}
 
         # Token balances for alt-coins. 
@@ -60,25 +82,45 @@ class Wallet:
             token_balance = int(token_balance_hex, 16)
             
 
-            if token_balance != 0:
+            if token_balance != 0 and ticker != None:
                 # Get the coin id
                 try:
-                    coin_id = self.oracle.get_id_by_ticker(ticker=ticker.lower())
-                    coin_price = self.oracle.get_coin_prices(coin_id=coin_id)
+                    coin_price = self.oracle.get_coin_prices(coin_id=ticker, source="cmc")
+                    if ticker in self.stable_coins:
+                        stable_conversion = 10 ** 6
+                        token_balance = token_balance / stable_conversion
+                    elif ticker == self.wrapped_native_coin:
+                        token_balance = token_balance / wei_to_ether_conversion
+                    else:
+                        token_balance = token_balance / (10 ** 18) 
+                    #token_balance = token_balance / wei_to_ether_conversion
                     value = coin_price * token_balance
+                    # Add coin to wallet holdings dictionary. 
+                    wallet_holdings[ticker] = {
+                        "balance": token_balance,
+                        "value": "${:.2f}".format(value)
+                    }
                 except AttributeError:
                     print(f"Contract: {contract_address}")
+                except TypeError:
+                    print(f"Ticker2: {ticker}")
+                    ticker = contract_address
+                    print(f'Contract: {contract_address}')
+
             else:
                 value = 0
 
-            # Add coin to wallet holdings dictionary. 
-            wallet_holdings[ticker] = {
-                "balance": token_balance,
-                "value": value
-            }
-
-
-        print(f"Wallet: {wallet_holdings}")
+        # List to hold the holdings data.
+        data_list = []
+        for ticker, info in wallet_holdings.items():
+            data_list.append({"ticker": ticker, **info})
+        
+        # Create dataframe. 
+        df = pd.DataFrame(data_list)
+        df["date"] = [cur_date] * len(df)
+        df["time"] = [cur_time] * len(df)
+        df = df[["date", "time", "ticker", "balance", "value"]]
+        df.to_csv(self.csv_file_path, index=False)
     '''-----------------------------------'''
     '''-----------------------------------'''
     '''-----------------------------------'''
